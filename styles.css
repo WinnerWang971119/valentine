@@ -1,0 +1,647 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blush: #fff0f3;
+  --rose-light: #ffd6e0;
+  --rose: #e8a0b4;
+  --rose-gold: #b76e79;
+  --deep-rose: #c74b7a;
+  --wine: #8a2846;
+  --cream: #fefaf6;
+  --gold: #d4a574;
+  --gold-light: #e8c9a0;
+  --petal-1: #ffc2d1;
+  --petal-2: #ffb3c6;
+  --petal-3: #ff8fab;
+  --petal-4: #fb6f92;
+  --petal-5: #e8a0b4;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--blush);
+  color: var(--wine);
+}
+
+/* ===== NOISE TEXTURE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* ===== SCREENS ===== */
+.screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1s;
+  z-index: 1;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+  z-index: 10;
+}
+
+/* ===== LOGIN SCREEN ===== */
+#login-screen {
+  background: linear-gradient(165deg, var(--blush) 0%, var(--rose-light) 50%, var(--blush) 100%);
+}
+
+.login-card {
+  position: relative;
+  width: min(88vw, 380px);
+  padding: 48px 36px 40px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(183, 110, 121, 0.15);
+  border-radius: 24px;
+  box-shadow:
+    0 4px 24px rgba(183, 110, 121, 0.08),
+    0 1px 3px rgba(183, 110, 121, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.login-card.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  15% { transform: translateX(-8px) rotate(-1deg); }
+  30% { transform: translateX(7px) rotate(0.5deg); }
+  45% { transform: translateX(-6px) rotate(-0.5deg); }
+  60% { transform: translateX(5px) rotate(0.3deg); }
+  75% { transform: translateX(-3px) rotate(-0.2deg); }
+  90% { transform: translateX(2px) rotate(0); }
+}
+
+.login-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.login-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 8px rgba(199, 75, 122, 0.25));
+}
+
+.login-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--wine);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.login-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--rose-gold);
+  margin-bottom: 32px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.login-input-wrap {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 1.2rem;
+  color: var(--wine);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid var(--rose-light);
+  border-radius: 14px;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.15em;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-input::placeholder {
+  color: var(--rose);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.login-input:focus {
+  border-color: var(--rose-gold);
+  box-shadow: 0 0 0 4px rgba(183, 110, 121, 0.1);
+}
+
+.login-error {
+  font-size: 0.85rem;
+  color: var(--deep-rose);
+  font-style: italic;
+  height: 24px;
+  line-height: 24px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.login-error.visible {
+  opacity: 1;
+}
+
+.login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 14px 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, var(--rose-gold) 0%, var(--deep-rose) 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(199, 75, 122, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.login-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(199, 75, 122, 0.3);
+}
+
+/* ===== FLOATING PETALS ===== */
+.petals-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  opacity: 0;
+  top: -40px;
+  animation: petalFall var(--duration) var(--delay) ease-in-out infinite;
+  filter: blur(0.5px);
+}
+
+@keyframes petalFall {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) rotate(0deg) scale(0.8);
+  }
+  10% {
+    opacity: var(--opacity);
+  }
+  90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(var(--drift)) translateY(calc(100vh + 60px)) rotate(var(--rotation)) scale(0.4);
+  }
+}
+
+/* ===== FLOWER REVEAL SCREEN ===== */
+#flower-screen {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 40%, var(--rose-light) 100%);
+}
+
+.flower-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSS Roses */
+.rose-wrapper {
+  position: absolute;
+  transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rose {
+  position: relative;
+  width: var(--rose-size, 60px);
+  height: var(--rose-size, 60px);
+}
+
+.rose-petal {
+  position: absolute;
+  border-radius: 50% 50% 50% 0;
+  transform-origin: bottom right;
+  opacity: 0;
+  animation: bloomPetal 1.2s var(--petal-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bloomPetal {
+  0% { opacity: 0; transform: rotate(var(--rot)) scale(0); }
+  100% { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+}
+
+.rose-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 30%;
+  height: 30%;
+  background: var(--deep-rose);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: bloomCenter 0.6s 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bloomCenter {
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+.flower-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.flower-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.flower-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--wine);
+  line-height: 1.3;
+}
+
+.flower-text .for-you {
+  display: block;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 2.5rem;
+  color: var(--deep-rose);
+  margin-top: 8px;
+}
+
+/* ===== LETTER SCREEN ===== */
+#letter-screen {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%);
+}
+
+.letter-flowers-left,
+.letter-flowers-right {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.letter-flowers-left { left: 0; }
+.letter-flowers-right { right: 0; }
+
+.side-flower {
+  position: absolute;
+  opacity: 0.6;
+}
+
+.side-flower svg {
+  width: 100%;
+  height: 100%;
+}
+
+.letter-content {
+  position: relative;
+  z-index: 3;
+  max-width: min(85vw, 420px);
+  text-align: center;
+  padding: 20px;
+}
+
+.letter-paragraph {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--wine);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.letter-paragraph.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.letter-counter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 28px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.letter-counter.visible { opacity: 1; }
+
+.letter-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+  margin: 0 auto 28px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.2s;
+}
+
+.letter-divider.visible { opacity: 1; }
+
+.next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 14px 36px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose-gold);
+  background: transparent;
+  border: 1.5px solid var(--rose-light);
+  border-radius: 50px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s,
+              background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.next-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.next-btn:hover, .next-btn:active {
+  background: var(--rose-gold);
+  color: white;
+  border-color: var(--rose-gold);
+}
+
+.next-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s;
+}
+
+.next-btn:hover svg, .next-btn:active svg {
+  transform: translateX(3px);
+}
+
+/* ===== VALENTINE QUESTION SCREEN ===== */
+#question-screen {
+  background: linear-gradient(180deg, var(--blush) 0%, var(--rose-light) 60%, var(--rose) 100%);
+}
+
+.question-heart {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.question-heart.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.question-heart svg {
+  width: 100%;
+  height: 100%;
+  animation: heartPulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(199, 75, 122, 0.35));
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+  60% { transform: scale(1); }
+}
+
+.question-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--wine);
+  text-align: center;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+  line-height: 1.3;
+}
+
+.question-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.question-buttons {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s;
+}
+
+.question-buttons.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-yes, .btn-no {
+  padding: 14px 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-yes {
+  color: white;
+  background: linear-gradient(135deg, var(--deep-rose) 0%, var(--wine) 100%);
+  box-shadow: 0 4px 20px rgba(199, 75, 122, 0.4);
+}
+
+.btn-yes:active {
+  transform: scale(0.96);
+}
+
+.btn-no {
+  color: var(--rose-gold);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--rose-light);
+}
+
+.please-dont {
+  position: absolute;
+  bottom: 25%;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 1.4rem;
+  color: var(--deep-rose);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.please-dont.visible {
+  opacity: 1;
+}
+
+/* ===== CELEBRATION SCREEN ===== */
+#celebration-screen {
+  background: linear-gradient(180deg, var(--blush) 0%, var(--rose-light) 50%, var(--rose) 100%);
+}
+
+.hearts-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.final-message {
+  position: relative;
+  z-index: 101;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.final-message.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.final-message h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--wine);
+  line-height: 1.2;
+  text-shadow: 0 2px 20px rgba(199, 75, 122, 0.2);
+}
+
+.final-message .final-heart {
+  display: inline-block;
+  font-size: 2rem;
+  margin-top: 16px;
+  animation: heartPulse 1.5s ease-in-out infinite;
+}
+
+.final-message .final-sub {
+  display: block;
+  margin-top: 20px;
+  font-family: 'La Belle Aurore', cursive;
+  font-size: 1.4rem;
+  color: var(--deep-rose);
+}
+
+/* ===== SIDE FLOWER DECORATIONS ===== */
+.vine-decoration {
+  position: fixed;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.vine-decoration.visible {
+  opacity: 1;
+}
+
+.vine-left {
+  left: -10px;
+  top: 10%;
+}
+
+.vine-right {
+  right: -10px;
+  top: 5%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-height: 680px) {
+  .login-card { padding: 32px 28px 28px; }
+  .login-icon { width: 40px; height: 40px; margin-bottom: 16px; }
+  .login-title { font-size: 1.3rem; }
+  .login-subtitle { margin-bottom: 20px; }
+  .question-heart { width: 90px; height: 90px; }
+  .question-text { font-size: 1.5rem; }
+  .final-message h1 { font-size: 2rem; }
+}

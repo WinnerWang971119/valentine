@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(ipconfig:*)",
+      "Bash(findstr:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(git --version)",
+      "Bash(gh:*)"
+    ]
+  }
+}

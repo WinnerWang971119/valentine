@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>For You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=La+Belle+Aurore&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- FLOATING PETALS (always present) -->
+<div class="petals-container" id="petals"></div>
+
+<!-- SCREEN 1: LOGIN -->
+<div class="screen active" id="login-screen">
+  <div class="login-card" id="login-card">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81
+                 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4
+                 6.86-8.55 11.54L12 21.35z"
+              fill="url(#heartGrad)"/>
+        <defs>
+          <linearGradient id="heartGrad" x1="2" y1="3" x2="22" y2="21">
+            <stop offset="0%" stop-color="#e8a0b4"/>
+            <stop offset="100%" stop-color="#c74b7a"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <h1 class="login-title">A Letter For You</h1>
+    <p class="login-subtitle">When did I first say<br>Happy Valentine's to you?</p>
+    <div class="login-input-wrap">
+      <input type="text" class="login-input" id="login-input"
+             placeholder="YYYYMMDD" maxlength="8" inputmode="numeric"
+             autocomplete="off">
+    </div>
+    <p class="login-error" id="login-error">That's not quite right, my love...</p>
+    <button class="login-btn" id="login-btn" onclick="tryLogin()">
+      Open
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- SCREEN 2: FLOWER REVEAL -->
+<div class="screen" id="flower-screen">
+  <div class="flower-stage" id="flower-stage">
+    <div class="flower-text" id="flower-text">
+      <h2>I wrote something<br><span class="for-you">for you</span></h2>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: LETTER -->
+<div class="screen" id="letter-screen">
+  <!-- Side vine decorations -->
+  <div class="vine-decoration vine-left" id="vine-left">
+    <svg width="70" height="500" viewBox="0 0 70 500" fill="none">
+      <path d="M35 0 C35 50, 10 80, 20 120 S50 160, 35 200 S10 240, 25 280 S55 320, 35 360 S15 400, 30 440 S45 470, 35 500"
+            stroke="#e8a0b4" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <circle cx="20" cy="120" r="12" fill="#ffc2d1" opacity="0.6"/>
+      <circle cx="45" cy="200" r="10" fill="#ffb3c6" opacity="0.5"/>
+      <circle cx="15" cy="280" r="14" fill="#ffd6e0" opacity="0.5"/>
+      <circle cx="40" cy="360" r="11" fill="#ff8fab" opacity="0.4"/>
+      <circle cx="25" cy="440" r="13" fill="#ffc2d1" opacity="0.5"/>
+      <ellipse cx="12" cy="80" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(-30 12 80)"/>
+      <ellipse cx="48" cy="160" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(25 48 160)"/>
+      <ellipse cx="18" cy="240" rx="7" ry="3.5" fill="#e8a0b4" opacity="0.3" transform="rotate(-20 18 240)"/>
+      <ellipse cx="50" cy="320" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(30 50 320)"/>
+      <ellipse cx="20" cy="400" rx="7" ry="3.5" fill="#e8a0b4" opacity="0.3" transform="rotate(-25 20 400)"/>
+    </svg>
+  </div>
+  <div class="vine-decoration vine-right" id="vine-right">
+    <svg width="70" height="500" viewBox="0 0 70 500" fill="none">
+      <path d="M35 0 C35 50, 60 80, 50 120 S20 160, 35 200 S60 240, 45 280 S15 320, 35 360 S55 400, 40 440 S25 470, 35 500"
+            stroke="#e8a0b4" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <circle cx="50" cy="100" r="11" fill="#ffb3c6" opacity="0.5"/>
+      <circle cx="25" cy="180" r="13" fill="#ffc2d1" opacity="0.6"/>
+      <circle cx="55" cy="260" r="10" fill="#ffd6e0" opacity="0.5"/>
+      <circle cx="30" cy="340" r="12" fill="#ff8fab" opacity="0.4"/>
+      <circle cx="45" cy="420" r="11" fill="#ffc2d1" opacity="0.5"/>
+      <ellipse cx="58" cy="60" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(30 58 60)"/>
+      <ellipse cx="22" cy="140" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(-25 22 140)"/>
+      <ellipse cx="52" cy="220" rx="7" ry="3.5" fill="#e8a0b4" opacity="0.3" transform="rotate(20 52 220)"/>
+      <ellipse cx="20" cy="300" rx="8" ry="4" fill="#e8a0b4" opacity="0.3" transform="rotate(-30 20 300)"/>
+      <ellipse cx="50" cy="380" rx="7" ry="3.5" fill="#e8a0b4" opacity="0.3" transform="rotate(25 50 380)"/>
+    </svg>
+  </div>
+
+  <div class="letter-content">
+    <div class="letter-counter" id="letter-counter"></div>
+    <div class="letter-divider" id="letter-divider"></div>
+    <div class="letter-paragraph" id="letter-paragraph"></div>
+    <button class="next-btn" id="next-btn" onclick="nextParagraph()">
+      Continue
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- SCREEN 4: VALENTINE QUESTION -->
+<div class="screen" id="question-screen">
+  <div class="question-heart" id="question-heart">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+               2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81
+               14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4
+               6.86-8.55 11.54L12 21.35z"
+            fill="url(#bigHeartGrad)"/>
+      <defs>
+        <linearGradient id="bigHeartGrad" x1="2" y1="3" x2="22" y2="21">
+          <stop offset="0%" stop-color="#fb6f92"/>
+          <stop offset="100%" stop-color="#c74b7a"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <p class="question-text" id="question-text">Will you be<br>my Valentine?</p>
+  <div class="question-buttons" id="question-buttons">
+    <button class="btn-yes" onclick="sayYes()">Yes</button>
+    <button class="btn-no" id="btn-no" onclick="sayNo()">No</button>
+  </div>
+  <p class="please-dont" id="please-dont">小朋友別皮了~</p>
+</div>
+
+<!-- SCREEN 5: CELEBRATION -->
+<div class="screen" id="celebration-screen">
+  <canvas class="hearts-canvas" id="hearts-canvas"></canvas>
+  <div class="final-message" id="final-message">
+    <h1>Happy<br>Valentine's Day!</h1>
+    <span class="final-heart">&#10084;</span>
+    <span class="final-sub">I love you</span>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
