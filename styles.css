@@ -367,7 +367,7 @@ body::before {
 }
 
 .letter-paragraph {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'LXGW WenKai Mono TC', 'Cormorant Garamond', serif;
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.8;
@@ -548,7 +548,7 @@ body::before {
 .please-dont {
   position: absolute;
   bottom: 25%;
-  font-family: 'La Belle Aurore', cursive;
+  font-family: 'LXGW WenKai Mono TC', 'La Belle Aurore', cursive;
   font-size: 1.4rem;
   color: var(--deep-rose);
   opacity: 0;

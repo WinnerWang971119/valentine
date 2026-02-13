@@ -6,7 +6,11 @@
       "Bash(findstr:*)",
       "Bash(python -m http.server:*)",
       "Bash(git --version)",
-      "Bash(gh:*)"
+      "Bash(gh:*)",
+      "Bash(where:*)",
+      "Bash(powershell.exe -Command \"gh auth status\")",
+      "Bash(powershell.exe -Command \"gh api repos/WinnerWang971119/valentine/pages -X POST -f ''source[branch]=main'' -f ''source[path]=/'' 2>&1\")",
+      "Bash(powershell.exe:*)"
     ]
   }
 }
